@@ -1,0 +1,21 @@
+input.form-control,
+textarea.form-control,
+button.btn {
+    transition: all 0.3s ease;
+}
+
+input.form-control:focus,
+textarea.form-control:focus {
+    border-color: #6f42c1; /* Couleur pour un effet de focus */
+    box-shadow: 0 0 10px rgba(111, 66, 193, 0.3);
+}
+
+button.btn:hover {
+    background-color: #6f42c1;
+    color: white;
+    transform: translateY(-2px);
+}
+body {
+    background: linear-gradient(135deg, #f3f4f6, #e9ecef);
+    color: #343a40;
+}
