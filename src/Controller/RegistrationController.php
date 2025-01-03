@@ -1,5 +1,6 @@
 <?php
 
+// src/Controller/RegistrationController.php
 namespace App\Controller;
 
 use App\Entity\Users;
@@ -22,11 +23,12 @@ class RegistrationController extends AbstractController
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, UsersAuthenticator $authenticator, EntityManagerInterface $entityManager, SendMailService $mail, JWTService $jwt): Response
     {
         $user = new Users();
+        // Créer le formulaire d'inscription
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Encoder le mot de passe
+            // Encoder le mot de passe de l'utilisateur
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
@@ -38,7 +40,7 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // Génération du JWT de l'utilisateur
+            // Génération du JWT pour l'utilisateur
             $header = [
                 'typ' => 'JWT',
                 'alg' => 'HS256'
@@ -48,56 +50,60 @@ class RegistrationController extends AbstractController
                 'user_id' => $user->getId()
             ];
 
+            // Générer un token JWT
             $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
 
-            // Envoi du mail de vérification
+            // Envoi d'un e-mail de vérification à l'utilisateur
             $mail->send(
-                'no-reply@monsite.net',
-                $user->getEmail(),
-                'Activation de votre compte sur le site e-commerce',
-                'register',
-                compact('user', 'token')
+                'no-reply@monsite.net',  // Adresse de l'expéditeur
+                $user->getEmail(),  // Email du destinataire
+                'Activation de votre compte sur le site e-commerce',  // Sujet de l'email
+                'register',  // Le template Twig utilisé pour l'email
+                compact('user', 'token')  // Variables à passer au template
             );
 
-            // Authentification de l'utilisateur
+            // Authentifier l'utilisateur automatiquement après inscription
             $userAuthenticator->authenticateUser(
                 $user,
                 $authenticator,
                 $request
             );
 
-            // Redirection vers la page d'accueil après l'inscription et l'authentification
-            return $this->redirectToRoute('app_main'); // Redirige vers la page d'accueil
+            // Rediriger l'utilisateur vers la page principale après l'inscription et l'authentification
+            return $this->redirectToRoute('app_main');  // Remplacer 'app_main' par la route de la page principale
         }
 
+        // Rendre le formulaire d'inscription dans la vue
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }
 
+    // Méthode pour vérifier l'activation du compte via le token
     #[Route('/verif/{token}', name: 'verify_user')]
     public function verifyUser($token, JWTService $jwt, UsersRepository $usersRepository, EntityManagerInterface $em): Response
     {
         // Vérification du token (validité, expiration, etc.)
         if ($jwt->isValid($token) && !$jwt->isExpired($token) && $jwt->check($token, $this->getParameter('app.jwtsecret'))) {
-            // Récupération du payload et de l'utilisateur
+            // Récupérer le payload et l'utilisateur
             $payload = $jwt->getPayload($token);
             $user = $usersRepository->find($payload['user_id']);
 
-            // Activation de l'utilisateur
+            // Activer l'utilisateur si non déjà activé
             if ($user && !$user->getIsVerified()) {
                 $user->setIsVerified(true);
                 $em->flush($user);
                 $this->addFlash('success', 'Utilisateur activé');
-                return $this->redirectToRoute('profile_index');
+                return $this->redirectToRoute('profile_index');  // Rediriger vers la page de profil après activation
             }
         }
 
         // En cas de problème avec le token
         $this->addFlash('danger', 'Le token est invalide ou a expiré');
-        return $this->redirectToRoute('app_login');
+        return $this->redirectToRoute('app_login');  // Rediriger vers la page de connexion en cas d'erreur
     }
 
+    // Méthode pour renvoyer l'email de vérification
     #[Route('/renvoiverif', name: 'resend_verif')]
     public function resendVerif(JWTService $jwt, SendMailService $mail, UsersRepository $usersRepository): Response
     {
@@ -125,7 +131,7 @@ class RegistrationController extends AbstractController
 
         $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
 
-        // Envoi du mail de vérification
+        // Envoi de l'email de vérification
         $mail->send(
             'no-reply@monsite.net',
             $user->getEmail(),
@@ -133,7 +139,8 @@ class RegistrationController extends AbstractController
             'register',
             compact('user', 'token')
         );
+
         $this->addFlash('success', 'Email de vérification envoyé');
-        return $this->redirectToRoute('profile_index');
+        return $this->redirectToRoute('profile_index');  // Rediriger vers la page de profil
     }
 }

@@ -5,4 +5,7 @@ controllers:
 kernel:
     resource: ../src/Kernel.php
     type: annotation
+admin_rehash_password:
+    path: /admin/rehash-password
+    controller: App\Controller\AdminController::rehashAdminPassword
 

@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Détails de {{ product.name }}
+{% endblock %}
+
+{% block body %}
+<main class="container py-5">
+    <section class="py-5">
+        <div class="text-center text-light mb-5">
+            <h1 class="mt-4"font-size: 5.5 rem; style="color:  black;"> <span>{{  product.name }}</span></h1>
+
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card shadow-lg border-0 bg-dark text-light">
+                    <!-- Image du produit -->
+                    <div class="card-img-top" style="height: 300px; background-color: #333;">
+                        
+                            <div class="d-flex justify-content-center align-items-center h-100 w-100 text-secondary">
+                                <i class="fas fa-box fa-5x"></i> <!-- Icône par défaut -->
+                            </div>
+                        
+                    </div>
+
+                    <!-- Détails du produit -->
+                    <div class="card-body">
+                        <h5 class="card-title" : style="color:  #DDA0DD;">{{ product.name }}</h5>
+                        <p class="card-text"><strong>Description :</strong> {{ product.description }}</p>
+                        <p class="card-text"><strong>Prix :</strong> {{ product.price | number_format(2, '.', ',') }} DT</p>
+                        <p class="card-text"><strong>Stock :</strong> {{ product.stock }}</p>
+                    </div>
+                    <!-- Section de commande (bouton sans lien pour le moment) -->
+                   
+                    <div class="card-footer text-center">
+
+                    <a href="{{ path('categories_list', {slug: product.category.slug}) }}"
+                    class="btn btn-outline-light shadow-sm"
+                                                   style="background-color: #DDA0DD; border-color: #DDA0DD; color: black; font-size: 1.5rem;">Order Now
+                                                </a>
+                                            </div>              
+                    <!-- Retour à la liste des produits -->
+                    <div class="card-footer text-center">
+                        <a href="{{ path('categories_list', {slug: product.category.slug}) }}" class="btn btn-outline-light shadow-sm">Back to product list
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

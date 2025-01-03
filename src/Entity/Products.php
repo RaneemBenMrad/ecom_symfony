@@ -43,12 +43,12 @@ class Products
 
     #[ORM\ManyToOne(targetEntity: Categories::class, inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
-    private $categories;
+    private $category;
 
-    #[ORM\OneToMany(mappedBy: 'products', targetEntity: Images::class, orphanRemoval: true, cascade: ['persist'])]
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Images::class, orphanRemoval: true, cascade: ['persist'])]
     private $images;
 
-    #[ORM\OneToMany(mappedBy: 'products', targetEntity: OrdersDetails::class)]
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: OrdersDetails::class)]
     private $ordersDetails;
 
     public function __construct()
@@ -111,14 +111,14 @@ class Products
         return $this;
     }
 
-    public function getCategories(): ?Categories
+    public function getCategory(): ?Categories
     {
-        return $this->categories;
+        return $this->category;
     }
 
-    public function setCategories(?Categories $categories): self
+    public function setCategory(?Categories $category): self
     {
-        $this->categories = $categories;
+        $this->category = $category;
 
         return $this;
     }
@@ -135,7 +135,7 @@ class Products
     {
         if (!$this->images->contains($image)) {
             $this->images[] = $image;
-            $image->setProducts($this);
+            $image->setProduct($this);
         }
 
         return $this;
@@ -145,8 +145,8 @@ class Products
     {
         if ($this->images->removeElement($image)) {
             // set the owning side to null (unless already changed)
-            if ($image->getProducts() === $this) {
-                $image->setProducts(null);
+            if ($image->getProduct() === $this) {
+                $image->setProduct(null);
             }
         }
 
@@ -165,7 +165,7 @@ class Products
     {
         if (!$this->ordersDetails->contains($ordersDetail)) {
             $this->ordersDetails[] = $ordersDetail;
-            $ordersDetail->setProducts($this);
+            $ordersDetail->setProduct($this);
         }
 
         return $this;
@@ -175,11 +175,12 @@ class Products
     {
         if ($this->ordersDetails->removeElement($ordersDetail)) {
             // set the owning side to null (unless already changed)
-            if ($ordersDetail->getProducts() === $this) {
-                $ordersDetail->setProducts(null);
+            if ($ordersDetail->getProduct() === $this) {
+                $ordersDetail->setProduct(null);
             }
         }
 
         return $this;
     }
 }
+

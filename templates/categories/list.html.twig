@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Produits de la catégorie : {{ category.name }}
+{% endblock %}
+
+{% block body %}
+<main class="container py-5">
+    <section class="py-5">
+        <div class="text-center text-light mb-5">
+            <h1 class="mt-4"font-size: 5.5 rem; style="color: #DDA0DD;"> <span>{{ category.name }}</span></h1>
+        
+            <h1 class="mt-4" style="color: black; font-size: 2.5rem;">Products in the category </h1>
+     
+        
+
+        <!-- Vérification de la présence de produits -->
+        {% if products is not empty %}
+            <div class="row justify-content-center">
+                {% for product in products %}
+                    <div class="col-md-4 col-lg-3 mb-4">
+                        <div class="card shadow-sm border-0 bg-dark text-light">
+                            <!-- Image du produit -->
+                            <div class="card-img-top" style="height: 200px; background-color: #333;">
+                                
+                                    <div class="d-flex justify-content-center align-items-center h-100 w-100 text-secondary">
+                                        <i class="fas fa-box fa-3x"></i> <!-- Icône par défaut -->
+                                    </div>
+                               
+                            </div>
+
+                            <!-- Détails du produit -->
+                            <div class="card-body">
+                                <h5 class="mt-4"font-size: 5.5 rem; style="color: #DDA0DD">{{ product.name }}</h5>
+                                <p class="card-text">{{ product.description[:50] ~ '...' }}</p>
+                                <div class="text-center mt-3">
+                                    <a href="{{ path('products_details', {slug: product.slug}) }}" class="btn btn-outline-light w-100">
+                                        see more</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-center text-light">Aucun produit trouvé pour cette catégorie.</p>
+        {% endif %}
+        <div class="card-footer text-center">
+            <a href="{{ path('app_main') }}" class="btn btn-outline-dark shadow-sm">Back to product list</a>
+        </div>
+        
+    </section>
+</main>
+{% endblock %}

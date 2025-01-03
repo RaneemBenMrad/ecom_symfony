@@ -1,20 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MainController!{% endblock %}
-
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<main class="container" style="background-color: black; color: white; min-height: 100vh; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+    <section class="text-center" style="width: 100%; max-width: 1200px;">
+            <div class="col-12">
+                <h1 class="mt-4" style="color: #DDA0DD; font-size: 2.5rem;">Welcome to our store
+                </h1>
+                <p style="font-size: 1.2rem;">Bienvenue dans notre boutique</p>
+            </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+            <!-- Affichage de l'image home.png -->
+            <div class="col-12">
+                <img src="{{ asset('assets/uploads/home.png') }}" alt="Image d'accueil" 
+                     style="max-width: 100%; height: auto; margin: 20px 0; border: 3px solid #DDA0DD; border-radius: 8px;">
+            </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/xampp/htdocs/ecom1/src/Controller/MainController.php'|file_link(0) }}">src/Controller/MainController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/ecom1/templates/main/index.html.twig'|file_link(0) }}">templates/main/index.html.twig</a></code></li>
-    </ul>
-</div>
+            {% if categories|length == 0 %}
+                <div class="col-12">
+                    <p>Aucune catégorie disponible pour le moment.</p>
+                </div>
+            {% else %}
+                <div class="row mt-5 d-flex justify-content-center">
+                    {% for category in categories %}
+                        {% if category.parent == null %}
+                            <div class="col-12">
+                                <h2 style="color: #DDA0DD; font-size: 2rem; margin-bottom: 20px;">{{ category.name }}</h2>
+                                <div class="subcategories-container d-flex flex-wrap justify-content-center">
+                                    {% for subcategory in categories %}
+                                        {% if subcategory.parent == category %}
+                                            <div class="subcategory-item text-center m-4" 
+                                                 style="width: 250px; padding: 20px; background-color: #333; border: 2px solid #DDA0DD; border-radius: 10px;">
+                                                {% if subcategory.image is defined and subcategory.image is not empty %}
+                                                    <img src="{{ subcategory.image }}" alt="{{ subcategory.name }}" 
+                                                         style="width: 100%; height: 150px; object-fit: cover; border-radius: 6px;">
+                                                {% endif %}
+                                                <h3 class="subcategory-title mt-3" style="color: white; font-size: 1.2rem;">{{ subcategory.name }}</h3>
+                                                <a href="{{ path('categories_list', {slug: subcategory.slug}) }}" 
+                                                   class="btn btn-primary mt-3" 
+                                                   style="background-color: #DDA0DD; border-color: #DDA0DD; color: black; font-size: 1rem;">View products
+                                                </a>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </section>
+    </main>
 {% endblock %}

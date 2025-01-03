@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Entity;
-use App\Entity\Trait\SlugTrait; // Vérifiez cette ligne
-use App\Entity\Trait\CreatedAtTrait;
+
+use App\Entity\Trait\SlugTrait;
 use App\Repository\CategoriesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -31,7 +31,7 @@ class Categories
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
     private $categories;
 
-    #[ORM\OneToMany(mappedBy: 'categories', targetEntity: Products::class)]
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Products::class)]  // Relation OneToMany vers Products
     private $products;
 
     public function __construct()
@@ -123,7 +123,7 @@ class Categories
     {
         if (!$this->products->contains($product)) {
             $this->products[] = $product;
-            $product->setCategories($this);
+            $product->setCategory($this);
         }
 
         return $this;
@@ -133,8 +133,8 @@ class Categories
     {
         if ($this->products->removeElement($product)) {
             // set the owning side to null (unless already changed)
-            if ($product->getCategories() === $this) {
-                $product->setCategories(null);
+            if ($product->getCategory() === $this) {
+                $product->setCategory(null);
             }
         }
 

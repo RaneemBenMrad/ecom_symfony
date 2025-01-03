@@ -1,0 +1,18 @@
+{# templates/emails/register.html.twig #}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Activation de votre compte</title>
+</head>
+<body>
+    <h1>Bienvenue sur notre site e-commerce !</h1>
+    <p>Bonjour {{ user.email }},</p>
+    <p>Merci de vous être inscrit sur notre site. Pour activer votre compte, veuillez cliquer sur le lien suivant :</p>
+    <p><a href="{{ path('verify_user', {'token': token}) }}">Activer mon compte</a></p>
+    <p>Si vous n'êtes pas à l'origine de cette demande, vous pouvez ignorer cet email.</p>
+    <p>Bien cordialement,</p>
+    <p>L'équipe du site e-commerce</p>
+</body>
+</html>

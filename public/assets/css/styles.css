@@ -19,3 +19,103 @@ body {
     background: linear-gradient(135deg, #f3f4f6, #e9ecef);
     color: #343a40;
 }
+
+.white-bg {
+    background-color: white;
+    padding: 20px;             /* Augmente l'espace interne du bloc */
+    border-radius: 10px;       /* Arrondir les coins */
+    width: 250px;              /* Largeur plus grande pour l'élément */
+    height: 150px;             /* Hauteur plus grande */
+    display: flex;             /* Utilisation de Flexbox pour centrer le contenu */
+    flex-direction: column;    /* Organiser les éléments dans une colonne */
+    align-items: center;       /* Centrer le contenu horizontalement */
+    justify-content: center;   /* Centrer le contenu verticalement */
+    box-sizing: border-box;    /* Inclut le padding dans la taille totale */
+}
+
+/* Conteneur pour aligner les sous-catégories en ligne */
+.subcategories-container {
+    display: flex;
+    flex-wrap: wrap; /* Permet de revenir à la ligne si nécessaire */
+    gap: 10px;       /* Espacement entre les éléments */
+}
+
+/* Style pour chaque sous-catégorie */
+.subcategory-item {
+    flex: 0 1 200px; /* Largeur fixe pour chaque sous-catégorie */
+    max-width: 250px;
+    margin: 10px;
+}
+
+/* Image dans chaque sous-catégorie */
+.subcategory-img {
+    max-width: 100%; /* Adapte la taille de l'image au cadre */
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+/* Titre de la sous-catégorie */
+.subcategory-title {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card img {
+    object-fit: cover;
+    height: 200px;
+}
+
+h1.display-4 {
+    font-size: 2.5rem;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+.text-mauve {
+    color: #9b59b6 !important; /* Utilisation de !important pour forcer la priorité */
+}
+
+.text-mauve {
+    color: #9b59b6; /* Couleur mauve */
+}
+
+.btn-mauve {
+    background-color: #9b59b6;
+    color: white;
+    border: none;
+}
+
+.btn-mauve:hover {
+    background-color: #8e44ad; /* Mauve plus foncé au survol */
+}
+
+.btn-black {
+    background-color: black;
+    color: white;
+    border: none;
+}
+
+.btn-black:hover {
+    background-color: #333; /* Fond noir plus foncé au survol */
+    color: white;
+}
+
+.btn-black:active, .btn-black:focus {
+    background-color: #d1a2ff; /* Couleur mauve au clic */
+    color: white;
+}
+
