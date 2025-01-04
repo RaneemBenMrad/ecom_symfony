@@ -119,3 +119,92 @@ h1.display-4 {
     color: white;
 }
 
+/* Transition sur les éléments du formulaire */
+input.form-control,
+textarea.form-control,
+button.btn {
+    transition: all 0.3s ease;
+}
+
+/* Effet de focus sur les champs de formulaire */
+input.form-control:focus,
+textarea.form-control:focus {
+    border-color: #6f42c1; /* Couleur de bordure sur focus */
+    box-shadow: 0 0 10px rgba(111, 66, 193, 0.3); /* Ombre portée lors du focus */
+}
+
+/* Effet de survol sur les boutons */
+button.btn:hover {
+    background-color: #6f42c1; /* Changer la couleur de fond au survol */
+    color: white;
+    transform: translateY(-2px); /* Légère élévation au survol */
+}
+
+/* Arrière-plan de la page avec un dégradé */
+body {
+    background: linear-gradient(135deg, #f3f4f6, #e9ecef); /* Dégradé de fond */
+    color: #343a40;
+}
+
+/* Conteneur avec fond blanc, arrondi et centrage du contenu */
+.white-bg {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+/* Conteneur de formulaire avec un espacement cohérent */
+.product-form {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Groupe de champs avec une marge */
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* Style spécifique des champs de texte */
+input.form-control,
+textarea.form-control {
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+/* Bouton de soumission avec effet de survol */
+button.btn {
+    background-color: #9b59b6; /* Mauve */
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    width: 100%;
+    cursor: pointer;
+}
+
+button.btn:hover {
+    background-color: #8e44ad;
+    transform: translateY(-2px);
+}
+
+/* Message d'erreur en rouge */
+.form-error {
+    color: red;
+    font-size: 12px;
+}

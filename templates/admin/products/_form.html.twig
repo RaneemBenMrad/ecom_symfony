@@ -1,1 +1,28 @@
-{{ form(productForm) }}
+{# templates/product_form.html.twig #}
+
+
+    {{ form_start(productForm, {'attr': {'class': 'product-form'}}) }}
+    
+    <div class="form-group">
+        {{ form_row(productForm.name, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    
+    <div class="form-group">
+        {{ form_row(productForm.description, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_row(productForm.category, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_row(productForm.price, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    
+    <div class="form-group">
+        {{ form_row(productForm.stock, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-mauve">{{ button_label|default('Ajouter') }}</button>
+    </div>
+
+    {{ form_end(productForm) }}

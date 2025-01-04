@@ -28,7 +28,7 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <!-- Icône Panier -->
-                        <a class="nav-link active" aria-current="page" href="{{ path('app_main') }}">
+                        <a class="nav-link active" aria-current="page" href="{{ path('cart_index') }}">
                             <i class="fas fa-shopping-cart" style="font-size: 30px; color:#DDA0DD;"></i> <!-- Icône de chariot -->
                         </a>
                     </li>
@@ -36,7 +36,6 @@
                     <!-- Icône Recherche -->
                     <li class="nav-item">
                         <a class="nav-link" href="#">
-                            <i class="fas fa-search" style="font-size: 30px; color: #DDA0DD;"></i> <!-- Icône de recherche -->
                         </a>
                     </li>
                 </ul>
@@ -46,12 +45,10 @@
                     {% if app.user %}
                         {% if is_granted('ROLE_PRODUCT_ADMIN') %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ path('admin_index') }}">Administration</a>
+                                <a a class="nav-link text-dark fw-bold fs-4" href="{{ path('admin_index') }}">Administration</a>
                             </li>
                         {% endif %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Mon compte</a>
-                        </li>
+                       
                         <li class="nav-item">
                             <a class="nav-link text-dark fw-bold fs-4" href="{{ path('app_logout') }}">Log out
                             </a>

@@ -4,13 +4,12 @@
     <main class="container">
         <section class="row">
             <div class="col-12">
-                <h1>Panier</h1>
-                <table class="table">
+                <h1 class="display-4 text-mauve">Cart</h1>                <table class="table">
                     <thead>
                         <tr>
-                            <th>Produit</th>
-                            <th>Prix</th>
-                            <th>Quantité</th>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
                             <th>Total</th>
                             <th>Action</th>
                         </tr>
@@ -23,14 +22,15 @@
                                 <td>{{ element.quantity }}</td>
                                 <td>{{ element.quantity * element.product.price / 100 }} €</td>
                                 <td>
-                                    <a href="{{ path('cart_add', {id: element.product.id}) }}" class="btn btn-success">+</a>
+                                    <a href="{{ path('cart_add', {id: element.product.id}) }}" class="btn btn-mauve"">+</a>
                                     <a href="{{ path('cart_remove', {id: element.product.id}) }}" class="btn btn-warning">-</a>
-                                    <a href="{{ path('cart_delete', {id: element.product.id}) }}" class="btn btn-danger">Supprimer</a>
+                                    <a href="{{ path('cart_delete', {id: element.product.id}) }}" class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>
                         {% else %}
                             <tr>
-                                <td colspan="5">Votre panier est vide</td>
+                                <td colspan="5">your cart is empty
+                                </td>
                             </tr>    
                         {% endfor %}
                     </tbody>
@@ -39,12 +39,12 @@
                             <td colspan="3">Total</td>
                             <td>{{ total / 100 }} €</td>
                             <td>
-                                <a href="{{ path('cart_empty') }}" class="btn btn-danger">Vider</a>
+                                <a href="{{ path('cart_empty') }}" class="btn btn-danger">Empty</a>
                             </td>
                         </tr>
                     </tfoot>
                 </table>
-                <a href="{{ path('app_orders_add') }}" class="btn btn-primary">Valider le panier</a>
+                <a href="{{ path('app_orders_add') }}" class="btn btn-mauve">Checkout</a>
             </div>
         </section>
     </main>

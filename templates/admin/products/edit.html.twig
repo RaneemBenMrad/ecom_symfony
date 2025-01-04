@@ -1,18 +1,37 @@
-{% extends "base.html.twig" %}
+{% extends 'base.html.twig' %}
 
-{% block title %}Administration des produits{% endblock %}
-
-{% block body %}
-    <main class="container">
-        <section class="row">
-            <div class="col-12">
-                <h1>Modifier un produit</h1>
-                {% include "admin/products/_form.html.twig" with {'button_label': 'Modifier'} %}
-            </div>
-        </section>
-    </main>
+{% block title %}Edit product
 {% endblock %}
 
-{% block javascripts %}
-    <script src="{{ asset('assets/js/images.js') }}" defer></script>
+{% block body %}
+    <h1>Edit product
+    </h1>
+
+    {{ form_start(form, {'attr': {'class': 'product-form'}}) }}
+
+    <div class="form-group">
+        {{ form_row(form.name, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_row(form.description, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_row(form.category, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_row(form.price, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_row(form.stock, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-mauve">Modifier</button>
+    </div>
+
+    {{ form_end(form) }}
 {% endblock %}
