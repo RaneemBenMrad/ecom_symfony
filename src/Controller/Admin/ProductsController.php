@@ -6,6 +6,7 @@ namespace App\Controller\Admin;
 use App\Entity\Products;
 use App\Entity\Categories;
 use App\Form\ProductsFormType;
+use App\Repository\ProductsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,12 +21,17 @@ class ProductsController extends AbstractController
     #[Route('/', name: 'index')]
     public function index(ProductsRepository $productsRepository): Response
     {
+        // Récupérer tous les produits via le repository
         $produits = $productsRepository->findAll();
-        return $this->render('admin/products/index.html.twig', compact('produits'));
+
+        // Rendre la vue avec la liste des produits
+        return $this->render('admin/products/index.html.twig', [
+            'produits' => $produits
+        ]);
     }
 
     // Ajouter un produit
-    #[Route('/admin/produits/ajout', name: 'admin_products_add')]
+    #[Route('/ajout', name: 'add')]
     public function add(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $product = new Products();
@@ -59,7 +65,7 @@ class ProductsController extends AbstractController
 
     // Modifier un produit
   // Modifier un produit
-#[Route('/admin/produits/edition/{id}', name: 'admin_products_edit')]
+#[Route('/edition/{id}', name: 'edit')]
 public function edit($id, Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
 {
     $product = $entityManager->getRepository(Products::class)->find($id);
@@ -93,31 +99,23 @@ public function edit($id, Request $request, EntityManagerInterface $entityManage
     ]);
 }
 
-#[Route('/admin/produits/suppression/{id}', name: 'admin_products_delete')]
-
-
+// Supprimer un produit
+#[Route('/suppression/{id}', name: 'delete', methods: ['POST'])]
 public function delete($id, EntityManagerInterface $entityManager): Response
 {
-    // Récupération du produit par son identifiant
+    // Trouver le produit par ID
     $product = $entityManager->getRepository(Products::class)->find($id);
 
-    // Vérification si le produit existe
     if (!$product) {
-        throw $this->createNotFoundException('Produit non trouvé');
+        $this->addFlash('error', 'Produit non trouvé.');
+        return $this->redirectToRoute('admin_products_index');
     }
 
-    // Suppression du produit
+    // Supprimer le produit
     $entityManager->remove($product);
     $entityManager->flush();
 
-    // Message de succès
-    $this->addFlash('success', 'Produit supprimé avec succès');
-
-    // Redirection vers la liste des produits
-    return $this->redirectToRoute('admin_products_list');
+    $this->addFlash('success', 'Produit supprimé avec succès.');
+    return $this->redirectToRoute('admin_products_index');
 }
-
-
 }
-
-

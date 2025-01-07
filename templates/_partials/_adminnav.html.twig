@@ -5,7 +5,6 @@
         </div>
         <div class="card-body">
             <p><a href="{{ path('admin_categories_index') }}">Liste des catégories</a></p>
-            <p><a href="">Ajouter une catégorie</a></p>
         </div>
     </article>
     <article class="card mb-3">
@@ -13,7 +12,11 @@
             Produits
         </div>
         <div class="card-body">
-            <p><a href="{{ path('admin_products_index') }}">Liste des produits</a></p>
+            <p><a href="{{ path('admin_products_index') }}">Liste Les produit</a></p>
+
+            <p><a href="{{ path('admin_products_add') }}">Ajouter des produits</a></p>
+
+
         </div>
     </article>
     <article class="card mb-3">
@@ -22,6 +25,7 @@
         </div>
         <div class="card-body">
             <p><a href="{{ path('admin_users_index') }}">Liste des utilisateurs</a></p>
+
         </div>
     </article>
 </aside>

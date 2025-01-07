@@ -1,0 +1,12 @@
+{# templates/admin/categories/edit.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Modifier une catégorie</h1>
+
+    {{ form_start(categoryForm) }}
+        {{ form_row(categoryForm.name) }}
+        <button class="btn btn-primary">Modifier</button>
+    {{ form_end(categoryForm) }}
+{% endblock %}

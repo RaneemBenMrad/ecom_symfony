@@ -208,3 +208,65 @@ button.btn:hover {
     color: red;
     font-size: 12px;
 }
+/* Table */
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.product-table th, .product-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.product-table th {
+    background-color: #f8f9fa;
+    color: #333;
+    font-weight: bold;
+}
+
+.product-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Button Styles */
+.btn {
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+}
+
+.edit-btn {
+    background-color: #007bff;
+    color: #fff;
+    transition: background-color 0.3s;
+}
+
+.edit-btn:hover {
+    background-color: #0056b3;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    color: #fff;
+    transition: background-color 0.3s;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
+
+/* No product found */
+.product-table td[colspan="5"] {
+    text-align: center;
+    padding: 20px;
+    font-style: italic;
+    color: #777;
+}

@@ -1,0 +1,12 @@
+{# templates/admin/categories/add.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Ajouter une catégorie</h1>
+
+    {{ form_start(categoryForm) }}
+        {{ form_row(categoryForm.name) }}
+        <button class="btn btn-primary">Ajouter</button>
+    {{ form_end(categoryForm) }}
+{% endblock %}
