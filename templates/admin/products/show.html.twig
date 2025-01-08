@@ -1,0 +1,14 @@
+{# templates/product/show.html.twig #}
+
+<h1>{{ product.name }}</h1>
+<p>{{ product.description }}</p>
+<p>Prix: {{ product.price }}€</p>
+
+<h3>Images du produit</h3>
+<div>
+    {% for image in product.images %}
+        <img src="{{ asset('images/' ~ image.name) }}" alt="{{ image.name }}" style="max-width: 200px; margin: 10px;">
+    {% else %}
+        <p>Aucune image disponible pour ce produit.</p>
+    {% endfor %}
+</div>

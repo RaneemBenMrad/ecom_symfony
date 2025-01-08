@@ -118,4 +118,20 @@ public function delete($id, EntityManagerInterface $entityManager): Response
     $this->addFlash('success', 'Produit supprimé avec succès.');
     return $this->redirectToRoute('admin_products_index');
 }
+#[Route('/product/{id}/add-image', name: 'add_image_to_product')]
+public function addImageToProduct(Products $product, Request $request, EntityManagerInterface $em): Response
+{
+    // Création d'une nouvelle image (si ce n'est pas un upload direct)
+    $image = new Images();
+    $image->setName('image_name.jpg'); // Exemple: tu peux récupérer le nom de l'image via un formulaire d'upload
+
+    // Associer l'image au produit
+    $product->addImage($image);
+
+    // Sauvegarder l'image dans la base de données
+    $em->persist($image);
+    $em->flush();
+
+    return $this->redirectToRoute('product_show', ['id' => $product->getId()]);
+}
 }

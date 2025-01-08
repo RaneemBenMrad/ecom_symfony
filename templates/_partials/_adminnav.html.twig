@@ -1,31 +1,140 @@
-<aside class="col-3 border border-light bg-white p-2">
-    <article class="card mb-3">
-        <div class="card-header">
-            Catégories
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Couleur de fond légère */
+        }
+        .sidebar {
+            height: 100vh;
+            background-color: #9b59b6; /* Mauve */
+            color: white;
+        }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+        }
+        .sidebar a:hover {
+            background-color: #732d91; /* Mauve foncé */
+            color: white;
+        }
+        .navbar {
+            background-color: #9b59b6; /* Couleur Mauve */
+        }
+        .card {
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="d-flex">
+        <div class="sidebar p-3">
+            <h3 class="mb-4">Admin Dashboard</h3>
+            <ul class="nav flex-column">
+                <li class="nav-item mb-2">
+                    <a href="#" class="nav-link"><i class="bi bi-house"></i> Dashboard</a>
+                </li>
+                <li class="nav-item mb-2">
+                    <a href="{{ path('admin_categories_index') }}" class="nav-link"><i class="bi bi-list"></i> Catégories</a>
+                </li>
+                <li class="nav-item mb-2">
+                    <a href="{{ path('admin_products_index') }}" class="nav-link"><i class="bi bi-box-seam"></i> Produits</a>
+                </li>
+                <li class="nav-item mb-2">
+                    <a href="{{ path('admin_users_index') }}" class="nav-link"><i class="bi bi-people"></i> Utilisateurs</a>
+                </li>
+            </ul>
         </div>
-        <div class="card-body">
-            <p><a href="{{ path('admin_categories_index') }}">Liste des catégories</a></p>
-        </div>
-    </article>
-    <article class="card mb-3">
-        <div class="card-header">
-            Produits
-        </div>
-        <div class="card-body">
-            <p><a href="{{ path('admin_products_index') }}">Liste Les produit</a></p>
 
-            <p><a href="{{ path('admin_products_add') }}">Ajouter des produits</a></p>
+        <!-- Main Content -->
+        <div class="w-100">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">Admin</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"><i class="bi bi-bell"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"><i class="bi bi-person-circle"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
 
+            <!-- Dashboard Content -->
+            <div class="container mt-4">
+                <div class="row">
+                    <!-- Cards -->
+                    <div class="col-md-4">
+                        <div class="card p-3">
+                            <h5>Ventes</h5>
+                            <p class="text-muted">Revenus Totaux</p>
+                            <h3>$12,340</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card p-3">
+                            <h5>Utilisateurs</h5>
+                            <p class="text-muted">Total des membres</p>
+                            <h3>1,230</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card p-3">
+                            <h5>Produits</h5>
+                            <p class="text-muted">Total en stock</p>
+                            <h3>540</h3>
+                        </div>
+                    </div>
+                </div>
 
+                <!-- Chart Section -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="card p-4">
+                            <h5>Rapport Mensuel</h5>
+                            <canvas id="salesChart" style="max-height: 300px;"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </article>
-    <article class="card mb-3">
-        <div class="card-header">
-            Utilisateurs
-        </div>
-        <div class="card-body">
-            <p><a href="{{ path('admin_users_index') }}">Liste des utilisateurs</a></p>
+    </div>
 
-        </div>
-    </article>
-</aside>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('salesChart').getContext('2d');
+        const salesChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Ventes',
+                    data: [1200, 1900, 3000, 5000, 2300, 3400],
+                    backgroundColor: 'rgba(155, 89, 182, 0.2)',
+                    borderColor: '#9b59b6',
+                    borderWidth: 2
+                }]
+            }
+        });
+    </script>
+</body>
+</html>

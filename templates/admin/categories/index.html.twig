@@ -1,35 +1,46 @@
 {# templates/admin/categories/index.html.twig #}
-
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Liste des catégories</h1>
+    <div class="container mt-5">
+        <h1 class="mb-4 text-center text-uppercase" style="color: #9b59b6;">Liste des Catégories</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nom</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for category in categories %}
-                <tr>
-                    <td>{{ category.id }}</td>
-                    <td>{{ category.name }}</td>
-                    <td>
-                        <a href="{{ path('admin_categories_edit', {'id': category.id}) }}" class="btn btn-primary">Éditer</a>
-                        <a href="{{ path('admin_categories_delete', {'id': category.id}) }}" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette catégorie ?')">Supprimer</a>
-                    </td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="3">Aucune catégorie disponible</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        <div class="d-flex justify-content-between mb-3">
+            <a href="{{ path('admin_categories_add') }}" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i> Ajouter une catégorie
+            </a>
+        </div>
 
-    <a href="{{ path('admin_categories_add') }}" class="btn btn-success">Ajouter une catégorie</a>
+        <div class="table-responsive">
+            <table class="table table-hover table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for category in categories %}
+                        <tr>
+                            <td>{{ category.id }}</td>
+                            <td>{{ category.name }}</td>
+                            <td>
+                                <a href="{{ path('admin_categories_edit', {'id': category.id}) }}" class="btn btn-primary btn-sm">
+                                    <i class="bi bi-pencil-square"></i> Éditer
+                                </a>
+                                <a href="{{ path('admin_categories_delete', {'id': category.id}) }}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette catégorie ?')">
+                                    <i class="bi bi-trash"></i> Supprimer
+                                </a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="3" class="text-center text-muted">Aucune catégorie disponible</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}
